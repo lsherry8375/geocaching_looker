@@ -8,13 +8,14 @@ datagroup: lee_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-label: "E-Commerce Training"
+label: "geocaching"
 
 explore: outings {
   join: account {
     type: left_outer
     sql_on: ${outings.account_id} = ${account.account_id} ;;
     relationship: many_to_one
+    view_label: "caching"
   }
 }
 
