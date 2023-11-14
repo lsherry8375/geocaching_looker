@@ -15,7 +15,7 @@ explore: outings {
     type: left_outer
     sql_on: ${outings.account_id} = ${account.account_id} ;;
     relationship: many_to_one
-    view_label: "caching"
+    view_label: "account"
   }
 }
 
