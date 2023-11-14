@@ -265,6 +265,42 @@ view: account {
     type: number
     sql: ${TABLE}.TotalFavoritePoints ;;
   }
+
+  dimension: 30day_conversion{
+    type: yesno
+    sql: BecamePremium IS NOT NULL AND DATE_DIFF(BecamePremium,CreateDate,DAY)<=30 AND
+      DATE_DIFF(CURRENT_DATE(),CreateDate,DAY)>30;;
+  }
+  dimension: has_find{
+    type: yesno
+    sql: FindCount>0;;
+  }
+  dimension: 7day_find{
+    type: yesno
+    sql: DaysToFirstFind<=7 AND
+      DATE_DIFF(CURRENT_DATE(),CreateDate,DAY)>7;;
+  }
+  dimension_group: since_last_find {
+    type: duration
+    intervals: [day, week, month, year]
+    sql_start: LastCacheFindDate;;
+    sql_end: CURRENT_DATE();;
+  }
+  measure: premium_count {
+    type: count
+    filters: [pmstatus: "Premium"]
+  }
+
+  measure: M1_outings {
+    type: max
+    sql: CASE WHEN DATE_DIFF(outings.outing_date,CreateDate,DAY) <= 30  THEN 1 ELSE 0 END ;;
+  }
+
+  measure: M2_outings {
+    type: max
+    sql: CASE WHEN DATE_DIFF(outings.outing_date,CreateDate,DAY) BETWEEN 31 AND 60  THEN 1 ELSE 0 END ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [country_name, continent_name]

@@ -29,7 +29,29 @@ view: outings {
 
   dimension: total_caches_found {
     type: number
+    hidden: yes
     sql: ${TABLE}.TotalCachesFound ;;
+  }
+
+  dimension_group: outings_since_signup {
+    type: duration
+    intervals: [day, week, month, year]
+    sql_start: account.CreateDate;;
+    sql_end: ${outing_date};;
+  }
+
+  dimension: M1_find{
+    type: yesno
+    sql: DATE_DIFF(${outing_date},Account.CreateDate,DAY)<30;;
+  }
+
+  measure: total_outings {
+    type: count
+  }
+
+  measure: total_finds {
+    type: sum
+    sql: ${total_caches_found} ;;
   }
 
   set: detail {
