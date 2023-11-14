@@ -242,6 +242,7 @@ view: account {
   }
   dimension: public_guid {
     type: string
+    hidden: yes
     sql: ${TABLE}.PublicGuid ;;
   }
   dimension: signup_game {

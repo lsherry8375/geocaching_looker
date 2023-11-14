@@ -11,11 +11,12 @@ view: outings {
 
   dimension: key {
     type: string
+    hidden: yes
     primary_key: yes
     sql: ${TABLE}.key ;;
   }
 
-  dimension: rdate {
+  dimension: outing_date {
     type: date
     datatype: date
     sql: ${TABLE}.rdate ;;
@@ -34,7 +35,7 @@ view: outings {
   set: detail {
     fields: [
         key,
-  rdate,
+  outing_date,
   account_id,
   total_caches_found
     ]
