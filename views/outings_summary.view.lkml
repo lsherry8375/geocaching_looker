@@ -37,6 +37,14 @@ view: outings_summary {
     type: number
     sql: ${TABLE}.outings_last_365_days ;;
   }
+
+  dimension: outings_last_365_days_tier {
+    type: tier
+    tiers: [0,1,2,3,4,5,10,20,30,40,50,60,70,80,100,300]
+    style: integer
+    sql: ${outings_last_365_days} ;;
+  }
+
   dimension: outings_last_60_days {
     type: number
     sql: ${TABLE}.outings_last_60_days ;;
